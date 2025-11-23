@@ -45,9 +45,9 @@ function App() {
 
       <ul>
         {todos.map((t) => (
-          <li key={t.id}>{t.text}<button className="bg-amber-600 " onClick={()=>handleDeleteTodo(t.id)}> Delete </button><div>
+          <li key={t.id}>{t.text}<Button className="bg-amber-600 " onClick={()=>handleDeleteTodo(t.id)}> Delete </Button><div>
             
-            {t.completed ? <button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</button> :<button  onClick={()=>handleToggleTodo(t.id)} >Complete</button>}</div></li>
+            {t.completed ? <Button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</Button> :<Button className="bg-blue-500" onClick={()=>handleToggleTodo(t.id)} >Complete</Button>}</div></li>
         ))}
       </ul>
       <div>

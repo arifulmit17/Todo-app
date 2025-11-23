@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
+import { persistReducer, persistStore } from "redux-persist";
 import { todosSlice } from './../features/todos/todosSlice';
 
 const persistConfig = {
@@ -18,3 +18,6 @@ export const store = configureStore({
 
 // RootState type
 export type RootState = ReturnType<typeof store.getState>;
+
+// Create and export the persistor so the app can wait for rehydration
+export const persistor = persistStore(store);
