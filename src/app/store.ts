@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
-import { todosSlice } from "../features/todos/todosSlice";
-
+import { persistReducer } from "redux-persist";
+import { todosSlice } from './../features/todos/todosSlice';
 
 const persistConfig = {
   key: "root",
@@ -17,4 +16,5 @@ export const store = configureStore({
   },
 });
 
-export const persistor = persistStore(store);
+// RootState type
+export type RootState = ReturnType<typeof store.getState>;
