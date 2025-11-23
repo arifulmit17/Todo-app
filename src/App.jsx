@@ -1,13 +1,12 @@
 
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, deleteTodo } from "./features/todos/todosSlice"; // <-- import correct path
+import { addTodo, deleteTodo, toggleTodo } from "./features/todos/todosSlice"; // <-- import correct path
 import { useState } from "react";
 import "./App.css";
 
 function App() {
   const todo = useSelector((state) => state.todos.list);
   const dispatch = useDispatch();
-  console.log(todo);
   const [text, setText] = useState("");
 
   const handleAddTodo = () => {
@@ -19,6 +18,9 @@ function App() {
 
   const handleDeleteTodo=(id)=>{
       dispatch(deleteTodo(id))
+  }
+  const handleToggleTodo=(id)=>{
+      dispatch(toggleTodo(id))
   }
   
   return (
@@ -34,11 +36,13 @@ function App() {
       />
 
       {/* Add button */}
-      <button onClick={handleAddTodo}>Add Todo</button>
+      <button className="btn btn-accent" onClick={handleAddTodo}>Add Todo</button>
 
       <ul>
         {todo.map((t) => (
-          <li key={t.id}>{t.text}<button onClick={()=>handleDeleteTodo(t.id)}> Delete </button></li>
+          <li key={t.id}>{t.text}<button className="bg-amber-600 " onClick={()=>handleDeleteTodo(t.id)}> Delete </button><div>
+            
+            {t.completed ? <button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</button> :<button  onClick={()=>handleToggleTodo(t.id)} >Complete</button>}</div></li>
         ))}
       </ul>
       <div>
