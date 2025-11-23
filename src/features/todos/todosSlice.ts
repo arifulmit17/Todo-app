@@ -40,7 +40,7 @@ export const todosSlice= createSlice({
         }
      },
      deleteTodo(state,action:PayloadAction<string>){
-        state.list=state.list.filter((item)=>item.id===action.payload)
+        state.list=state.list.filter((item)=>item.id!==action.payload)
      }
     }
 })

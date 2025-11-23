@@ -1,6 +1,6 @@
 
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "./features/todos/todosSlice"; // <-- import correct path
+import { addTodo, deleteTodo } from "./features/todos/todosSlice"; // <-- import correct path
 import { useState } from "react";
 import "./App.css";
 
@@ -17,6 +17,10 @@ function App() {
     setText("");               // clear input
   };
 
+  const handleDeleteTodo=(id)=>{
+      dispatch(deleteTodo(id))
+  }
+  
   return (
     <>
       <h1>The Todo App</h1>
@@ -34,9 +38,13 @@ function App() {
 
       <ul>
         {todo.map((t) => (
-          <li key={t.id}>{t.text}</li>
+          <li key={t.id}>{t.text}<button onClick={()=>handleDeleteTodo(t.id)}> Delete </button></li>
         ))}
       </ul>
+      <div>
+        
+        
+      </div>
     </>
   );
 }
