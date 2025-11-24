@@ -8,7 +8,6 @@ import { useState } from "react";
 import "./App.css";
 import type { RootState } from "./app/store.js";
 import { Button } from "./components/ui/button.js";
-import { Calendar } from "./components/ui/calendar.js";
 import {
   Card,
   CardAction,
@@ -18,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { DatePicker } from "./components/ui/datepicker.js";
 
 function App() {
   const todos = useSelector((state: RootState) => state.todos.list);
@@ -38,6 +38,7 @@ function App() {
     } else {
       dispatch(addTodo(text, date.toDateString())); // <-- send date as string
       setText("");
+      setDate(undefined);
     }
 
     // <-- send todo text to slice
@@ -74,12 +75,13 @@ function App() {
 
           <div className="w-full gap-5 row-start-1 col-start-2">
             <label className="mb-5 font-medium">Select Target Date:</label>
-            <Calendar
+            {/* <Calendar
               mode="single"
               selected={date}
               onSelect={setDate}
               className="rounded-lg  border"
-            />
+            /> */}
+            <DatePicker value={date} onChange={setDate}></DatePicker>
           </div>
 
           </div>
