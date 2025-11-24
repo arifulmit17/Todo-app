@@ -36,7 +36,7 @@ function App() {
       alert("Please select a future date for the todo item.");
       return;
     } else {
-      dispatch(addTodo(text, date.toString())); // <-- send date as string
+      dispatch(addTodo(text, date.toDateString())); // <-- send date as string
       setText("");
     }
 
@@ -54,72 +54,101 @@ function App() {
   return (
     <>
       <div className="max-w-7xl mx-auto h-screen grid grid-cols-2 justify-center items-center">
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-medium m-5">The work day coordinator</h1>
-          {/* Input field */}
+        <div className="w-full h-full flex flex-col gap-5 items-center">
+          <h1 className="text-3xl font-medium m-5">The task coordinator</h1>
+          <div className="text-3xl font-medium grid grid-cols-2 gap-5 m-5">
+
+            {/* Input field */}
           <input
+          className="h-10 col-start-1"
             type="text"
             value={text}
-            placeholder="Enter todo"
+            placeholder="Enter task"
             onChange={(e) => setText(e.target.value)}
           />
 
           {/* Add button */}
-          <Button variant={"outline"} className="" onClick={handleAddTodo}>
+          <Button variant={"outline"} className="col-start-1" onClick={handleAddTodo}>
             Add Todo
           </Button>
 
-          <div className=" h-20">
+          <div className="w-full gap-5 row-start-1 col-start-2">
+            <label className="mb-5 font-medium">Select Target Date:</label>
             <Calendar
               mode="single"
               selected={date}
               onSelect={setDate}
-              className="rounded-lg border"
+              className="rounded-lg  border"
             />
           </div>
-          <div className="flex gap-5"></div>
+
+          </div>
+          
+          
         </div>
 
         <div className="grid grid-cols-2 m-5">
-          {todos.map((t) => (
-            <div className="m-5" key={t.id}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>{t.text}</CardTitle>
-                  <CardDescription>Target Date: {t.targetDate}</CardDescription>
-                  <CardAction>
-                    <Button
-                      className="bg-amber-400 m-5"
-                      onClick={() => handleDeleteTodo(t.id)}
-                    >
-                      {" "}
-                      Delete{" "}
-                    </Button>
-                    {t.completed ? (
-                      <Button
-                        className="bg-green-500"
-                        onClick={() => handleToggleTodo(t.id)}
-                      >
-                        Completed
-                      </Button>
-                    ) : (
-                      <Button
-                        className="bg-blue-500"
-                        onClick={() => handleToggleTodo(t.id)}
-                      >
-                        Complete
-                      </Button>
-                    )}
-                  </CardAction>
-                </CardHeader>
-                <CardContent></CardContent>
-                <CardFooter></CardFooter>
-              </Card>
+         {todos.map((t) => {
+  // Calculate remaining days for this todo
+  const remainingDays = t.targetDate
+    ? Math.ceil(
+        (new Date(t.targetDate).getTime() - new Date().getTime()) /
+          (1000 * 60 * 60 * 24)
+      )
+    : null; // or 0, or 'N/A'
+
+  return (
+    <div className="m-5" key={t.id}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t.text}</CardTitle>
+          <CardDescription>
+            <div>
+              <h1>
+                <span className="text-blue-600">Target Date:</span>{" "}
+                {t.targetDate}
+              </h1>
+              <h3
+  className={remainingDays !== null && remainingDays < 10 ? "text-red-600" : "text-green-600"}
+>
+  <span>Remaining Days:</span> {remainingDays !== null ? remainingDays : "N/A"}
+</h3>
+
             </div>
-          ))}
+          </CardDescription>
+          <CardAction></CardAction>
+        </CardHeader>
+        <CardContent>
+          <Button
+            className="bg-amber-400 m-5"
+            onClick={() => handleDeleteTodo(t.id)}
+          >
+            Delete
+          </Button>
+          {t.completed ? (
+            <Button
+              className="bg-green-500"
+              onClick={() => handleToggleTodo(t.id)}
+            >
+              Completed
+            </Button>
+          ) : (
+            <Button
+              className="bg-blue-500"
+              onClick={() => handleToggleTodo(t.id)}
+            >
+              Complete
+            </Button>
+          )}
+        </CardContent>
+        <CardFooter></CardFooter>
+      </Card>
+    </div>
+  );
+})}
+
         </div>
 
-        {date && <p className="mt-2">Selected date: {date.toDateString()}</p>}
       </div>
     </>
   );
