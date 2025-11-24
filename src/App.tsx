@@ -6,7 +6,15 @@ import "./App.css";
 import type { RootState } from "./app/store.js";
 import { Button } from "./components/ui/button.js";
 import { Calendar } from "./components/ui/calendar.js";
-
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 
 
@@ -55,13 +63,19 @@ function App() {
      
       
 
-      <div>
+      <div className="grid grid-cols-2 m-5">
         {todos.map((t) => (
-          <div className="flex flex-row">
-             <div key={t.id}><div>{t.text}<Button className="bg-amber-400 m-5" onClick={()=>handleDeleteTodo(t.id)}> Delete </Button>
-            
-            {t.completed ? <Button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</Button> :<Button className="bg-blue-500" onClick={()=>handleToggleTodo(t.id)} >Complete</Button>}</div></div>
-            {t.completed ? null: <div className="w-1/2 h-20">
+          <div className="m-5" key={t.id}>
+            <Card>
+  <CardHeader>
+    <CardTitle>{t.text}</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+    <CardAction><Button className="bg-amber-400 m-5" onClick={()=>handleDeleteTodo(t.id)}> Delete </Button>
+      {t.completed ? <Button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</Button> :<Button className="bg-blue-500" onClick={()=>handleToggleTodo(t.id)} >Complete</Button>}
+    </CardAction>
+  </CardHeader>
+  <CardContent>
+     {t.completed ? null: <div className="w-1/2 h-20">
           <Calendar
     mode="single"
     selected={date}
@@ -69,7 +83,13 @@ function App() {
     className="rounded-lg border"
   />
 
+
        </div>}
+  </CardContent>
+  <CardFooter>
+   
+  </CardFooter>
+</Card>    
           </div>
           
         ))}
