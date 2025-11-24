@@ -2,6 +2,7 @@
 import App from "@/App";
 import { createBrowserRouter } from "react-router";
 import MainLayout from './../layouts/mainLayout';
+import Tasks from "@/pages/Tasks";
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ export const router = createBrowserRouter([
         {
             index:true,
             element:<App/>
+        },
+        {
+            path:"/tasks",
+            element:<Tasks></Tasks>
         }
     ]
   },

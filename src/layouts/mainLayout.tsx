@@ -16,10 +16,6 @@ export default function MainLayout() {
         <Outlet />   {/* ← Child pages render here */}
       </main>
 
-      {/* Footer */}
-      <footer className="p-4 bg-gray-200">
-        <p>© 2024</p>
-      </footer>
 
     </div>
   );

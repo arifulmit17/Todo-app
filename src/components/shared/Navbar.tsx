@@ -16,6 +16,13 @@ export function Navbar() {
         <NavigationMenuItem>
       <NavigationMenuLink asChild>
         <Link to="/">Home</Link>
+        
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+        <NavigationMenuItem>
+      <NavigationMenuLink asChild>
+        
+        <Link to="/tasks">Tasks</Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
     </NavigationMenu>
