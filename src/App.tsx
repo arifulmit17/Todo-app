@@ -30,7 +30,10 @@ function App() {
   
   return (
     <>
-      <h1>The Todo App</h1>
+    <div className="max-w-7xl mx-auto h-screen flex flex-col justify-center items-center">
+       <h1>The Todo App</h1>
+      <div className="flex gap-5">
+       
 
       {/* Input field */}
       <input
@@ -43,17 +46,23 @@ function App() {
       {/* Add button */}
       <Button variant={"outline"} className="" onClick={handleAddTodo}>Add Todo</Button>
 
+      </div>
+      
+
       <ul>
         {todos.map((t) => (
-          <li key={t.id}>{t.text}<Button className="bg-amber-600 " onClick={()=>handleDeleteTodo(t.id)}> Delete </Button><div>
+          <div className="flex flex-row">
+             <li key={t.id}><div>{t.text}<Button className="bg-amber-400 m-5" onClick={()=>handleDeleteTodo(t.id)}> Delete </Button>
             
             {t.completed ? <Button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</Button> :<Button className="bg-blue-500" onClick={()=>handleToggleTodo(t.id)} >Complete</Button>}</div></li>
+          </div>
+          
         ))}
       </ul>
-      <div>
-        
-        
-      </div>
+
+    </div>
+      
+     
     </>
   );
 }
