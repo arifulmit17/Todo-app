@@ -5,6 +5,7 @@ import { useState } from "react";
 import "./App.css";
 import type { RootState } from "./app/store.js";
 import { Button } from "./components/ui/button.js";
+import { Calendar } from "./components/ui/calendar.js";
 
 
 
@@ -13,6 +14,7 @@ function App() {
   const todos = useSelector((state: RootState) => state.todos.list);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   const handleAddTodo = () => {
     if (!text.trim()) return;
@@ -31,7 +33,7 @@ function App() {
   return (
     <>
     <div className="max-w-7xl mx-auto h-screen flex flex-col justify-center items-center">
-       <h1>The Todo App</h1>
+       <h1 className="text-3xl font-medium m-5">The work day coordinator</h1>
       <div className="flex gap-5">
        
 
@@ -48,17 +50,33 @@ function App() {
 
       </div>
       
+     
+      
+     
+      
 
-      <ul>
+      <div>
         {todos.map((t) => (
           <div className="flex flex-row">
-             <li key={t.id}><div>{t.text}<Button className="bg-amber-400 m-5" onClick={()=>handleDeleteTodo(t.id)}> Delete </Button>
+             <div key={t.id}><div>{t.text}<Button className="bg-amber-400 m-5" onClick={()=>handleDeleteTodo(t.id)}> Delete </Button>
             
-            {t.completed ? <Button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</Button> :<Button className="bg-blue-500" onClick={()=>handleToggleTodo(t.id)} >Complete</Button>}</div></li>
+            {t.completed ? <Button className="bg-green-500" onClick={()=>handleToggleTodo(t.id)}>Completed</Button> :<Button className="bg-blue-500" onClick={()=>handleToggleTodo(t.id)} >Complete</Button>}</div></div>
+            {t.completed ? null: <div className="w-1/2 h-20">
+          <Calendar
+    mode="single"
+    selected={date}
+    onSelect={setDate}
+    className="rounded-lg border"
+  />
+
+       </div>}
           </div>
           
         ))}
-      </ul>
+      </div>
+
+       
+       {date && <p className="mt-2">Selected date: {date.toDateString()}</p>}
 
     </div>
       
