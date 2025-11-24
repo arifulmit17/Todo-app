@@ -70,17 +70,11 @@ function App() {
 
           {/* Add button */}
           <Button variant={"outline"} className="col-start-1" onClick={handleAddTodo}>
-            Add Todo
+            Add Task
           </Button>
 
           <div className="w-full gap-5 row-start-1 col-start-2">
             <label className="mb-5 font-medium">Select Target Date:</label>
-            {/* <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className="rounded-lg  border"
-            /> */}
             <DatePicker value={date} onChange={setDate}></DatePicker>
           </div>
 

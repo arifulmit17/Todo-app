@@ -20,7 +20,10 @@ interface DatePickerProps {
 
 export function DatePicker({ value, onChange }: DatePickerProps) {
   const [internalDate, setInternalDate] = React.useState<Date | undefined>(value);
-  console.log(internalDate);
+
+   React.useEffect(() => {
+    setInternalDate(value);
+  }, [value]);
   const handleSelect = (selected: Date | undefined) => {
     setInternalDate(selected);     // update internal state for button display
     if (onChange) onChange(selected); // notify parent
