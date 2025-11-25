@@ -18,6 +18,7 @@ interface TaskCardProps {
   completed: boolean;
   handleDeleteTodo: (id: string) => void;
   handleToggleTodo: (id: string) => void;
+  onEdit: () => void;
 }
 
 export default function TaskCard({
@@ -27,7 +28,7 @@ export default function TaskCard({
   completed,
   handleDeleteTodo,
   handleToggleTodo,
-  handleUpdateTodo
+  onEdit
 }: TaskCardProps) {
   // Calculate remaining days for this todo
   const remainingDays = targetDate
@@ -72,13 +73,7 @@ export default function TaskCard({
           >
             Delete
           </Button>
-          <Button
-            variant="destructive"
-            className="px-4 bg-green-400"
-            onClick={() => handleUpdateTodo(id)}
-          >
-            Update
-          </Button>
+          {onEdit && <Button className="bg-green-400" onClick={onEdit}>Edit</Button>}
 
           {completed ? (
             <Button

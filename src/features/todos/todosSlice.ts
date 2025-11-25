@@ -42,12 +42,17 @@ export const todosSlice= createSlice({
             todo.completed=!todo.completed
         }
      },
-     updateTodo(state,action:PayloadAction<string>){
-        const todo=state.list.find((item)=>item.id===action.payload)
-        if (todo) {
-        todo.text = action.payload // ✅ Safe
+     updateTodo: (
+      state,
+      action: PayloadAction<{ id: string; newText: string; newDate?: Date | undefined}>
+    ) => {
+      const { id, newText, newDate } = action.payload;
+      const todo = state.list.find((t) => t.id === id);
+      if (todo) {
+        todo.text = newText;
+        todo.targetDate = newDate?.toDateString(); // store as string
       }
-     },
+    },
      deleteTodo(state,action:PayloadAction<string>){
         state.list=state.list.filter((item)=>item.id!==action.payload)
      }

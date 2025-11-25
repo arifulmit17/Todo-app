@@ -12,10 +12,20 @@ import { Button } from "./components/ui/button.js";
 
 import { DatePicker } from "./components/ui/datepicker.js";
 import TaskCard from "./components/shared/taskCard.js";
+import EditModal from "./components/shared/EditModal.js";
+
+interface Todo {
+  id: string;
+  text: string;
+  targetDate?: string | undefined;
+  completed: boolean;
+}
 
 function App() {
   const todos = useSelector((state: RootState) => state.todos.list);
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const pastTasks = todos.filter((t) => t.completed);
   const [text, setText] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -46,9 +56,7 @@ function App() {
   const handleToggleTodo = (id: string) => {
     dispatch(toggleTodo(id));
   };
-  const handleUpdateTodo = (id: string) => {
-    dispatch(updateTodo(id));
-  }
+  
 
   return (
     <>
@@ -121,8 +129,28 @@ function App() {
         completed={t.completed}
         handleDeleteTodo={handleDeleteTodo}
         handleToggleTodo={handleToggleTodo}
-        handleUpdateTodo={handleUpdateTodo}
+        onEdit={() => {
+    setSelectedTodo(t);
+    setIsModalOpen(true);
+  }}
+
       />
+      <EditModal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  initialText={selectedTodo?.text || ""}
+  initialDate={selectedTodo?.targetDate ? new Date(selectedTodo.targetDate) : undefined}
+  onSave={(newText, newDate) => {
+    // dispatch updateTodo here
+    if (selectedTodo) {
+     dispatch(updateTodo({ 
+  id: selectedTodo.id, 
+  newText, 
+  newDate 
+}));
+    }
+  }}
+/>
     </div>
   ))}
 
