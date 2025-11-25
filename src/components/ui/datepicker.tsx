@@ -41,8 +41,8 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
           {internalDate ? format(internalDate, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={internalDate} onSelect={handleSelect} />
+      <PopoverContent className="w-[200px] p-0 bg-white rounded-lg shadow-lg">
+        <Calendar mode="single" selected={internalDate} onSelect={handleSelect} className="bg-white w-auto" />
       </PopoverContent>
     </Popover>
   );
