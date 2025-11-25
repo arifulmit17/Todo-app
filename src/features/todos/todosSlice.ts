@@ -5,7 +5,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 interface Todo {
    id:string;
    text:string;
-   targetDate?:String | undefined;
+   targetDate?:string | undefined;
    completed:boolean;
 }
 
@@ -25,7 +25,7 @@ export const todosSlice= createSlice({
       reducer(state, action:PayloadAction<Todo>) {
         state.list.push(action.payload);
       },
-      prepare(text: string, date:String | undefined): { payload: Todo } {
+      prepare(text: string, date:string | undefined): { payload: Todo } {
         return {
           payload: {
             id: nanoid(),
@@ -42,12 +42,19 @@ export const todosSlice= createSlice({
             todo.completed=!todo.completed
         }
      },
+     updateTodo(state,action:PayloadAction<string>){
+        const todo=state.list.find((item)=>item.id===action.payload)
+        if (todo) {
+        todo.text = action.payload // ✅ Safe
+      }
+     },
      deleteTodo(state,action:PayloadAction<string>){
         state.list=state.list.filter((item)=>item.id!==action.payload)
      }
+
     }
 })
 
-export const { addTodo, toggleTodo, deleteTodo } = todosSlice.actions;
+export const { addTodo, toggleTodo, deleteTodo, updateTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;

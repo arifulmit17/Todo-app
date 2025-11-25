@@ -1,9 +1,11 @@
 import type { RootState } from '@/app/store';
+import TaskCard from '@/components/shared/taskCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { deleteTodo, toggleTodo } from '@/features/todos/todosSlice';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 
 const Tasks = () => {
     const todos = useSelector((state: RootState) => state.todos.list);
@@ -29,59 +31,12 @@ const Tasks = () => {
 
             return (
               <div className="m-1  " key={t.id}>
-                <Card className="p-4 shadow-md border rounded-xl space-y-4 hover:shadow-lg transition">
-  <CardHeader className="pb-2">
-    <CardTitle className="text-xl font-semibold">{t.text}</CardTitle>
-    <CardDescription>
-      <div className="space-y-1 mt-2">
-        <p>
-          <span className="font-medium text-blue-600">Target Date: </span>
-          {t.targetDate}
-        </p>
-
-        <p
-          className={`font-semibold ${
-            remainingDays !== null && remainingDays < 10
-              ? "text-red-600"
-              : "text-green-600"
-          }`}
-        >
-          Remaining Days:{" "}
-          {remainingDays !== null ? remainingDays : "N/A"}
-        </p>
-      </div>
-    </CardDescription>
-  </CardHeader>
-
-  <CardContent className="flex gap-3">
-    <Button
-      variant="destructive"
-      className="px-4 bg-red-600"
-      onClick={() => handleDeleteTodo(t.id)}
-    >
-      Delete
-    </Button>
-
-    {t.completed ? (
-      <Button
-        className="bg-green-600 hover:bg-green-700 text-white px-4"
-        onClick={() => handleToggleTodo(t.id)}
-      >
-        Completed
-      </Button>
-    ) : (
-      <Button
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4"
-        onClick={() => handleToggleTodo(t.id)}
-      >
-        Complete
-      </Button>
-    )}
-  </CardContent>
-
-  <CardFooter />
-</Card>
-
+               <TaskCard id={t.id}
+                       text={t.text}
+                       targetDate={t.targetDate}
+                       completed={t.completed}
+                       handleDeleteTodo={handleDeleteTodo}
+                       handleToggleTodo={handleToggleTodo}></TaskCard> 
               </div>
             );
           })}
