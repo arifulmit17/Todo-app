@@ -40,18 +40,18 @@ export default function TaskCard({
 
   return (
     <div>
-      <Card className="p-4 shadow-md border rounded-xl hover:shadow-lg transition flex flex-row gap-6">
+      <Card className={`p-4 shadow-md border rounded-xl hover:shadow-lg transition flex flex-row gap-6 ${completed ? "bg-green-200" : remainingDays !== null && remainingDays < 3 ? "bg-red-200" : remainingDays !== null && remainingDays < 10 ? "bg-yellow-200" : "bg-white"}`}>
         {/* LEFT (Info) */}
         <div className="flex-1 space-y-3">
           <CardHeader className="pb-2">
             <CardTitle className="text-xl font-semibold">{text}</CardTitle>
             <CardDescription>
-              <p>
+              <h3>
                 <span className="font-medium text-blue-600">Target Date: </span>
                 {targetDate}
-              </p>
+              </h3>
 
-              <p
+              <h4
                 className={`font-semibold ${
                   remainingDays !== null && remainingDays < 10
                     ? remainingDays !== null && remainingDays < 3?  "text-red-600 animate-bounce" : "text-yellow-600"
@@ -59,7 +59,7 @@ export default function TaskCard({
                 }`}
               >
                 Remaining Days: {remainingDays ?? "N/A"}
-              </p>
+              </h4>
             </CardDescription>
           </CardHeader>
         </div>
