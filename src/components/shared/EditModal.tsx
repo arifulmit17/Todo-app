@@ -10,19 +10,22 @@ interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialText: string;
+  initialCategory: string;
   initialDate?: Date | undefined;
-  onSave: (text: string, date?: Date) => void;
+  onSave: (text: string,category: string, date?: Date ) => void;
 }
 
 export default function EditModal({
   isOpen,
   onClose,
   initialText,
+  initialCategory,
   initialDate,
   onSave,
 }: EditModalProps) {
   const [text, setText] = useState(initialText);
   const [date, setDate] = useState<Date | undefined>(initialDate);
+  const [category, setCategory] = useState<string>(initialCategory || "");
 
   // Reset fields when modal opens
   useEffect(() => {
@@ -34,47 +37,64 @@ export default function EditModal({
 
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-6 w-96 shadow-lg space-y-4">
-        <h2 className="text-2xl font-semibold">Edit Task</h2>
+  <div className="bg-white rounded-lg p-6 w-96 shadow-lg space-y-4">
+    <h2 className="text-2xl font-semibold">Edit Task</h2>
 
-        {/* Task Name Input */}
-        <div className="flex flex-col space-y-1">
-          <label className="font-medium">Task Name</label>
-          <input
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Target Date */}
-        <div className="flex flex-col space-y-1">
-          <label className="font-medium">Target Date</label>
-          <DatePicker value={date} onChange={setDate} />
-        </div>
-
-        {/* Buttons */}
-        <div className="flex justify-end gap-3 mt-4">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="px-4 py-2"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              onSave(text, date);
-              onClose();
-            }}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            Save
-          </Button>
-        </div>
-      </div>
+    {/* Task Name Input */}
+    <div className="flex flex-col space-y-1">
+      <label className="font-medium">Task Name</label>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
     </div>
+
+    {/* Target Date */}
+    <div className="flex flex-col space-y-1">
+      <label className="font-medium">Target Date</label>
+      <DatePicker value={date} onChange={setDate} />
+    </div>
+
+    {/* Category Select */}
+    <div className="flex flex-col space-y-1">
+      <label className="font-medium">Category</label>
+      <select
+        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <option value="">-- Select Category --</option>
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Urgent">Urgent</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+
+    {/* Buttons */}
+    <div className="flex justify-end gap-3 mt-4">
+      <Button
+        variant="outline"
+        onClick={onClose}
+        className="px-4 py-2"
+      >
+        Cancel
+      </Button>
+      <Button
+        onClick={() => {
+          onSave(text,  category,date,); // pass category along with text and date
+          onClose();
+        }}
+        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white"
+      >
+        Save
+      </Button>
+    </div>
+  </div>
+</div>
+
   );
 }
 

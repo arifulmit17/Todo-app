@@ -5,6 +5,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 interface Todo {
    id:string;
    text:string;
+   category:string;
    targetDate?:string | undefined;
    completed:boolean;
 }
@@ -25,12 +26,13 @@ export const todosSlice= createSlice({
       reducer(state, action:PayloadAction<Todo>) {
         state.list.push(action.payload);
       },
-      prepare(text: string, date:string | undefined): { payload: Todo } {
+      prepare(text: string, date:string | undefined, category:string): { payload: Todo } {
         return {
           payload: {
             id: nanoid(),
             text,
             completed: false,
+            category: category,
             targetDate: date,
           },
         };
@@ -44,12 +46,13 @@ export const todosSlice= createSlice({
      },
      updateTodo: (
       state,
-      action: PayloadAction<{ id: string; newText: string; newDate?: Date | undefined}>
+      action: PayloadAction<{ id: string; newText: string; category: string, newDate?: Date | undefined}>
     ) => {
       const { id, newText, newDate } = action.payload;
       const todo = state.list.find((t) => t.id === id);
       if (todo) {
         todo.text = newText;
+        todo.category = action.payload.category;
         todo.targetDate = newDate?.toDateString(); // store as string
       }
     },

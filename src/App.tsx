@@ -17,6 +17,7 @@ import EditModal from "./components/shared/EditModal.js";
 interface Todo {
   id: string;
   text: string;
+  category: string;
   targetDate?: string | undefined;
   completed: boolean;
 }
@@ -26,6 +27,7 @@ function App() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
+const [category, setCategory] = useState<string>("");
   const pastTasks = todos.filter((t) => t.completed);
   const [text, setText] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -41,7 +43,7 @@ const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
       alert("Please select a future date for the todo item.");
       return;
     } else {
-      dispatch(addTodo(text, date.toDateString())); // <-- send date as string
+      dispatch(addTodo(text, date.toDateString(),category)); // <-- send date as string
       setText("");
       setDate(undefined);
     }
@@ -68,6 +70,8 @@ const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
               Add a New Task
             </h1>
 
+            
+
             {/* Task Input */}
             <div className="flex flex-col space-y-2">
               <select
@@ -82,6 +86,20 @@ const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
                   </option>
                 ))}
               </select>
+
+              {/* Category select */}
+  <label className="text-lg font-medium">Category</label>
+  <select
+    className="h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+  >
+    <option value="">-- Select a category --</option>
+    <option value="Work">Work</option>
+    <option value="Personal">Personal</option>
+    <option value="Urgent">Urgent</option>
+    <option value="Others">Others</option>
+  </select>
               <label className="text-lg font-medium">Task Name</label>
               <input
                 className="h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
@@ -125,6 +143,7 @@ const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
       <TaskCard
         id={t.id}
         text={t.text}
+        category={t.category}
         targetDate={t.targetDate}
         completed={t.completed}
         handleDeleteTodo={handleDeleteTodo}
@@ -139,14 +158,18 @@ const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   isOpen={isModalOpen}
   onClose={() => setIsModalOpen(false)}
   initialText={selectedTodo?.text || ""}
+  initialCategory={selectedTodo?.category || ""}
   initialDate={selectedTodo?.targetDate ? new Date(selectedTodo.targetDate) : undefined}
-  onSave={(newText, newDate) => {
+  onSave={(newText,category, newDate) => {
     // dispatch updateTodo here
     if (selectedTodo) {
      dispatch(updateTodo({ 
   id: selectedTodo.id, 
   newText, 
-  newDate 
+  category,
+  newDate ,
+  
+  
 }));
     }
   }}
