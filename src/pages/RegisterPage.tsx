@@ -10,8 +10,10 @@ import { set } from "date-fns";
 export default function RegisterPage() {
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
-    password: ""
+    password: "",
+    createdAt: new Date().toISOString()
   });
   // console.log(formData.email,formData.password);
 
@@ -31,12 +33,12 @@ export default function RegisterPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/register", {
+      const res = await fetch("http://localhost:3000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ formData }),
+        body: JSON.stringify( formData ),
       });
 
       const data = await res.json();
@@ -64,6 +66,12 @@ export default function RegisterPage() {
 
         <CardContent>
           <form onSubmit={handleRegister} className="space-y-4">
+            {/* Name */}
+            <div className="flex flex-col space-y-1">
+              <Label>Name</Label>
+              <Input name="name" type="text" placeholder="name" value={formData.name} onChange={handleInputChange} required />
+            </div>
+
             {/* Email */}
             <div className="flex flex-col space-y-1">
               <Label>Email</Label>
