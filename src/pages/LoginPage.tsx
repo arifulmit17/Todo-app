@@ -4,17 +4,30 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from 'react';
+import { set } from "date-fns";
 
 
 export default function LoginPage() {
 
-    const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+  // console.log(formData.email,formData.password);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name,value} = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    
+  }
+
+  const [error, setError] = useState("");
   const handleLogin = async (e:any) => {
     e.preventDefault();
-
+    
     setError("");
 
     try {
@@ -23,7 +36,7 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ formData }),
       });
 
       const data = await res.json();
@@ -54,13 +67,13 @@ export default function LoginPage() {
             {/* Email */}
             <div className="flex flex-col space-y-1">
               <Label>Email</Label>
-              <Input type="email" placeholder="example@gmail.com" required />
+              <Input name="email" type="email" placeholder="example@gmail.com" value={formData.email} onChange={handleInputChange} required />
             </div>
 
             {/* Password */}
             <div className="flex flex-col space-y-1">
               <Label>Password</Label>
-              <Input type="password" placeholder="••••••••" required />
+              <Input name="password" type="password" value={formData.password} onChange={handleInputChange} placeholder="••••••••" required />
             </div>
 
             {/* Submit Button */}
