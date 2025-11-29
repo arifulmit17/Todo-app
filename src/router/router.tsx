@@ -6,6 +6,8 @@ import Tasks from "@/pages/Tasks";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import DashboardLayout from './../layouts/DashboardLayout';
+import Dashboard from "@/admin/Dashboard";
+import { PrivateRoute } from "./PrivateRoute";
 
 
 
@@ -19,10 +21,6 @@ export const router = createBrowserRouter([
             element:<App/>
         },
         {
-            path:"/tasks",
-            element:<Tasks></Tasks>
-        },
-        {
             path:"/register",
             element:<RegisterPage></RegisterPage>
         },
@@ -34,6 +32,27 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        index: true,    
+        element:(
+           
+            <PrivateRoute>
+            <Dashboard></Dashboard>
+            </PrivateRoute>
+        )
+      },
+      {
+        path: "/dashboard/tasks",
+        element:(
+           
+            <PrivateRoute>
+            <Tasks></Tasks>
+            </PrivateRoute>
+        )
+      }
+    ]
+      
   }
 ]);
