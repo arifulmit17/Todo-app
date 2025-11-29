@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
+import { useRemainingDays } from "@/hooks/useRemainingDays";
 
 interface TaskCardProps {
   id: string;
@@ -33,16 +34,14 @@ export default function TaskCard({
   onEdit
 }: TaskCardProps) {
   // Calculate remaining days for this todo
-  const remainingDays = targetDate
-    ? Math.ceil(
-        (new Date(targetDate).getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24)
-      )
-    : null; // or 0, or 'N/A'
+   // or 0, or 'N/A'
+
+ const remainingDays = useRemainingDays(targetDate);
+  
 
   return (
     <div>
-     <Card
+   <Card
   className={`p-4 shadow-md border rounded-xl hover:shadow-lg transition flex flex-row gap-6 ${
     completed
       ? "bg-gray-200"
@@ -57,7 +56,7 @@ export default function TaskCard({
   <div className="flex-1 space-y-2">
     {/* Category Badge */}
     {category && (
-      <span className="inline-block bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+      <span className={`inline-block ${category=="Urgent" ? "bg-red-500":"bg-blue-500" }  text-white text-xs font-semibold px-2 py-1 rounded-full`}>
         {category}
       </span>
     )}

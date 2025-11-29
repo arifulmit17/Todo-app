@@ -13,6 +13,7 @@ const persistedReducer = persistReducer(persistConfig, todosSlice.reducer);
 export const store = configureStore({
   reducer: {
     todos: persistedReducer,
+    
   },
 });
 
