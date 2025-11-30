@@ -14,7 +14,7 @@ const initialState: UserState = {
   token: null,
 };
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
