@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Sidebar() {
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen bg-gray-900'>
         {/* Sidebar */}
               <aside className="w-64 bg-gray-900 text-white p-4 hidden md:block">
                 <h2 className="text-xl font-bold mb-6">Dashboard</h2>
