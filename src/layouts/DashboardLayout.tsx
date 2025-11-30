@@ -13,14 +13,33 @@ export default function DashboardLayout() {
     <div className="min-h-screen flex">
       
       
-      {isSidebarOpen && <Sidebar />}
+      {/* {isSidebarOpen && <Sidebar />} */}
      
-
-
-      <div>
-        <button  onClick={handleSidebarToggle}><IoMenu className="w-10 h-10" /></button>
+       {/* Sidebar with animation */}
+      <div
+        className={`
+          fixed md:static 
+          top-0 left-0 h-full 
+          bg-gray-900 text-white
+          transition-transform duration-300 ease-in-out 
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          w-64 z-50
+        `}
+      >
+        <Sidebar />
       </div>
 
+      {/* Toggle button */}
+  <button
+    onClick={handleSidebarToggle}
+    className={`
+      fixed top-4 left-4 z-50 
+      transition-transform duration-300 ease-in-out
+      ${isSidebarOpen ? "translate-x-64" : "translate-x-0"}
+    `}
+  >
+    <IoMenu className="w-10 h-10" />
+  </button>
       {/* Main Area */}
       <div className="flex-1 flex flex-col">
 
