@@ -13,7 +13,8 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    role: "user"
   });
   // console.log(formData.email,formData.password);
 

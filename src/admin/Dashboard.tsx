@@ -3,8 +3,8 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 export default function Dashboard() {
-    const todos = useSelector((state: RootState) => state.todos.list);
-    console.log(todos.length);
+    const user = useSelector((state: RootState) => state.user.user);
+    console.log(user);
   return (
     <div>Dashboard</div>
   )

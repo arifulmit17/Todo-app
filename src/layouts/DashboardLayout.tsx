@@ -5,7 +5,7 @@ import { IoMenu } from "react-icons/io5";
 import { useState } from "react";
 
 export default function DashboardLayout() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const handleSidebarToggle = () => {
         setIsSidebarOpen(!isSidebarOpen);
     }
@@ -26,7 +26,7 @@ export default function DashboardLayout() {
           w-64 z-50
         `}
       >
-        <Sidebar />
+        <Sidebar handleSidebarToggle={handleSidebarToggle} isSidebarOpen={isSidebarOpen} />
       </div>
 
       {/* Toggle button */}

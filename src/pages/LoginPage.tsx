@@ -5,9 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from 'react';
 import { set } from "date-fns";
+import { setUser } from "@/features/user/userSlice";
+import { useDispatch } from "react-redux";
 
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -40,6 +43,11 @@ export default function LoginPage() {
       });
 
       const data = await res.json();
+      dispatch(
+  setUser({
+    user: data.user,     // { id, name, email, role }
+    token: data.token,   // JWT
+  }))
 
       if (!res.ok) {
         setError(data.message || "Login failed");
