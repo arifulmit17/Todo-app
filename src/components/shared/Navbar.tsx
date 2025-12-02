@@ -1,15 +1,21 @@
 import {
   NavigationMenu,
 } from "@/components/ui/navigation-menu";
+import { logout } from "@/features/user/userSlice";
 import { useUserRole } from "@/hooks/useUserRole";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 
 export function Navbar() {
   const navigate = useNavigate();
   const user=useUserRole().user;
+   const dispatch = useDispatch();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+     dispatch(
+      logout())
     navigate("/login");
   };
 
