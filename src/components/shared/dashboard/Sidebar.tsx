@@ -1,9 +1,11 @@
+import { useUserRole } from '@/hooks/useUserRole';
 import React from 'react'
 import { IoMenu } from 'react-icons/io5'
 import { useNavigate } from 'react-router';
 
 export default function Sidebar({handleSidebarToggle,isSidebarOpen}:any) {
   const navigate = useNavigate();
+  const user=useUserRole().user;
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -24,7 +26,7 @@ export default function Sidebar({handleSidebarToggle,isSidebarOpen}:any) {
                   <a href="/dashboard" className="block hover:text-blue-400">Home</a>
                   <a href="/dashboard/profile" className="block hover:text-blue-400">Profile</a>
                   <a href="/dashboard/tasks" className="block hover:text-blue-400">Tasks</a>
-                  <a href="/login" className="block hover:text-blue-400">Login</a>
+                  {!user && <a href="/login" className="block hover:text-blue-400">Login</a>}
                   <a href="/register" className="block hover:text-blue-400">Register</a>
                   <a  onClick={handleLogout} className="block hover:text-blue-400">Logout</a>
                   

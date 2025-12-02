@@ -1,10 +1,12 @@
 import {
   NavigationMenu,
 } from "@/components/ui/navigation-menu";
+import { useUserRole } from "@/hooks/useUserRole";
 import { Link, useNavigate } from "react-router";
 
 export function Navbar() {
   const navigate = useNavigate();
+  const user=useUserRole().user;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -28,12 +30,12 @@ export function Navbar() {
           Tasks
         </Link>
 
-        <Link
+        {!user && <Link
           to="/login"
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
           Login
-        </Link>
+        </Link>}
 
         <Link
           to="/register"

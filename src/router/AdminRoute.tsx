@@ -15,7 +15,7 @@ export function AdminRoute({ children }: AdminRouteProps) {
 
   // Not admin → redirect
   if (role !== "admin") {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // Allowed
