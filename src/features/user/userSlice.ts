@@ -20,6 +20,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<{ user: UserState['user']; token: string }>) => {
+      console.log("USER FROM REDUCER:", action.payload.user);
       state.user = action.payload.user;
       state.token = action.payload.token;
     },

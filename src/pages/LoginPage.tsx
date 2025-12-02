@@ -32,7 +32,6 @@ export default function LoginPage() {
     e.preventDefault();
     
     setError("");
-
     try {
       const res = await fetch("http://localhost:3000/user/login", {
         method: "POST",
@@ -42,12 +41,9 @@ export default function LoginPage() {
         body: JSON.stringify(formData ),
       });
 
-      const data = await res.json();
-      dispatch(
-  setUser({
-    user: data.user,     // { id, name, email, role }
-    token: data.token,   // JWT
-  }))
+      const data =await res.json();
+      
+     
 
       if (!res.ok) {
         setError(data.message || "Login failed");
@@ -56,7 +52,14 @@ export default function LoginPage() {
 
       // Store token
       localStorage.setItem("token", data.token);
-
+      localStorage.setItem("user", JSON.stringify(data.user));
+      const user=data.user;
+      console.log(user);
+       dispatch(
+  setUser({
+    user: user,     // { id, name, email, role }
+    token: data.token   // JWT
+  }))
       // Redirect user
       window.location.href = "/dashboard";
     } catch (err) {

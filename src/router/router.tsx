@@ -8,6 +8,8 @@ import RegisterPage from "@/pages/RegisterPage";
 import DashboardLayout from './../layouts/DashboardLayout';
 import Dashboard from "@/admin/Dashboard";
 import { PrivateRoute } from "./PrivateRoute";
+import  ErrorPage from "@/pages/ErrorPage";
+import { AdminRoute } from './AdminRoute';
 
 
 
@@ -47,12 +49,16 @@ export const router = createBrowserRouter([
         path: "/dashboard/tasks",
         element:(
            
-            <PrivateRoute>
+            <AdminRoute>
             <Tasks></Tasks>
-            </PrivateRoute>
+            </AdminRoute>
         )
       }
     ]
       
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   }
 ]);

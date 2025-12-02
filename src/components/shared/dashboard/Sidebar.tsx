@@ -1,7 +1,13 @@
 import React from 'react'
 import { IoMenu } from 'react-icons/io5'
+import { useNavigate } from 'react-router';
 
 export default function Sidebar({handleSidebarToggle,isSidebarOpen}:any) {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <div className='min-h-screen bg-gray-900'>
         {/* Sidebar */}
@@ -19,7 +25,7 @@ export default function Sidebar({handleSidebarToggle,isSidebarOpen}:any) {
                   <a href="/dashboard/tasks" className="block hover:text-blue-400">Tasks</a>
                   <a href="/login" className="block hover:text-blue-400">Login</a>
                   <a href="/register" className="block hover:text-blue-400">Register</a>
-                  <a href="/logout" className="block hover:text-blue-400">Logout</a>
+                  <a  onClick={handleLogout} className="block hover:text-blue-400">Logout</a>
                   
                 </nav>
               </aside>
