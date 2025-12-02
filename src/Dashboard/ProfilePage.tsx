@@ -5,7 +5,7 @@ export default function ProfilePage() {
     const user=useUserRole().user;
   return (
     <div>
-        {user ? <div>Welcome {user.name}</div>: <div>Please log in to view your profile.</div>}
+        {user ? <div>Welcome {user.name}</div> : <div>Please log in to view your profile.</div>}
     </div>
   )
 }
