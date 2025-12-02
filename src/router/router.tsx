@@ -10,6 +10,7 @@ import Dashboard from "@/admin/Dashboard";
 import { PrivateRoute } from "./PrivateRoute";
 import  ErrorPage from "@/pages/ErrorPage";
 import { AdminRoute } from './AdminRoute';
+import ProfilePage from "@/Dashboard/ProfilePage";
 
 
 
@@ -52,6 +53,12 @@ export const router = createBrowserRouter([
             <AdminRoute>
             <Tasks></Tasks>
             </AdminRoute>
+        )
+      },
+      {
+        path: "/dashboard/profile",
+        element:( 
+          <ProfilePage></ProfilePage>
         )
       }
     ]

@@ -22,6 +22,7 @@ export default function Sidebar({handleSidebarToggle,isSidebarOpen}:any) {
         
                 <nav className="space-y-4">
                   <a href="/dashboard" className="block hover:text-blue-400">Home</a>
+                  <a href="/dashboard/profile" className="block hover:text-blue-400">Profile</a>
                   <a href="/dashboard/tasks" className="block hover:text-blue-400">Tasks</a>
                   <a href="/login" className="block hover:text-blue-400">Login</a>
                   <a href="/register" className="block hover:text-blue-400">Register</a>
