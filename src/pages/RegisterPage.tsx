@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from 'react';
 import { set } from "date-fns";
+import { Link } from "react-router";
 
 
 export default function RegisterPage() {
@@ -89,6 +90,7 @@ export default function RegisterPage() {
             <Button className="w-full" type="submit">
               register
             </Button>
+            <p>If registered, <Link className="text-blue-500" to='/register'>Login</Link> now</p>
           </form>
         </CardContent>
       </Card>
