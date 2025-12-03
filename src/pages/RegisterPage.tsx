@@ -87,10 +87,13 @@ export default function RegisterPage() {
             </div>
 
             {/* Submit Button */}
-            <Button className="w-full" type="submit">
+            <Button className="w-full bg-blue-500 text-white" type="submit">
               register
             </Button>
-            <p>If registered, <Link className="text-blue-500" to='/register'>Login</Link> now</p>
+            <div className="w-full flex justify-center">
+              <p>If registered, <Link className="text-blue-500" to='/register'>Login</Link> now</p>
+            </div>
+            
           </form>
         </CardContent>
       </Card>
