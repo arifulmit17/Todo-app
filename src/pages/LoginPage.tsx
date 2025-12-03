@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { set } from "date-fns";
 import { setUser } from "@/features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router";
 
 
 export default function LoginPage() {
@@ -91,6 +92,7 @@ export default function LoginPage() {
             <Button className="w-full" type="submit">
               Login
             </Button>
+            <p>If not registered, <Link className="text-blue-500" to='/register'>Register</Link> now</p>
           </form>
         </CardContent>
       </Card>
