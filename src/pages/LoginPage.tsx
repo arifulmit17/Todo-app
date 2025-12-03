@@ -89,10 +89,14 @@ export default function LoginPage() {
             </div>
 
             {/* Submit Button */}
-            <Button className="w-full" type="submit">
+            <Button className="w-full bg-blue-500 text-white" type="submit">
               Login
             </Button>
-            <p>If not registered, <Link className="text-blue-500" to='/register'>Register</Link> now</p>
+            <div className="w-full flex justify-center">
+               <p>If not registered, <Link className="text-blue-500" to='/register'>Register</Link> now</p>
+
+            </div>
+           
           </form>
         </CardContent>
       </Card>

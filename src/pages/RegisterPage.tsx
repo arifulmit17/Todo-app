@@ -91,7 +91,7 @@ export default function RegisterPage() {
               register
             </Button>
             <div className="w-full flex justify-center">
-              <p>If registered, <Link className="text-blue-500" to='/register'>Login</Link> now</p>
+              <p>If registered, <Link className="text-blue-500" to='/login'>Login</Link> now</p>
             </div>
             
           </form>
